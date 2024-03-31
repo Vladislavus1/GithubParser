@@ -3,9 +3,6 @@ import colorama
 import keyboard
 import pyperclip
 
-#main_screen, search_results_panel, repo_information_panel, help_panel, search_input_panel
-
-state = "main_screen"
 repo_clone_url = None
 
 
@@ -25,7 +22,7 @@ def change_current_repo_clone_url(url):
 
 def clone_repo_url(event):
     if keyboard.is_pressed('ctrl') and keyboard.is_pressed('shift') and keyboard.is_pressed('q'):
-        if repo_clone_url != None:
+        if repo_clone_url is not None:
             pyperclip.copy(f"git clone {repo_clone_url}")
         else:
             pass
@@ -44,7 +41,8 @@ def get_repo_info(full_name):
         programming_languages = ", ".join(get_data(repo_info.get('languages_url', {})).keys())
         contributors = [contributor_info['login'] for contributor_info in
                         get_data(repo_info.get('contributors_url', []))] if 'contributors_url' in repo_info else []
-        print_main_message({"ctrl + shift + q": "Allows you to copy the repository's clone command if the program is displaying information about a repository.",
+        print_main_message({"ctrl + shift + q": "Allows you to copy the repository's clone command if the program is "
+                                                "displaying information about a repository.",
                             "esc": "exits program.\n"})
         print(colorama.Fore.GREEN + f"\nRepository Name:" + colorama.Style.RESET_ALL + f" {repo_info['name']}")
         print(colorama.Fore.GREEN + f"Repository Url:" + colorama.Style.RESET_ALL + f" https://github.com/{full_name}")
@@ -83,6 +81,7 @@ def get_repo_info(full_name):
     else:
         print_error_message("Failed to retrieve repository information.")
 
+
 def print_main_message(list_of_combinations):
     print("\n")
     if list_of_combinations != {}:
@@ -91,6 +90,3 @@ def print_main_message(list_of_combinations):
     else:
         pass
     print("--------------------\n")
-
-
-
