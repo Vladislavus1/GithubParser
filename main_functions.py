@@ -50,7 +50,3 @@ def search(event):
                 print_error_message("Nothing found.")
         else:
             print_error_message("Failed to load search results.")
-
-
-
-
